@@ -11,90 +11,101 @@ using UnityEngine.UIElements;
 
 public class WheelController2024 : MonoBehaviour
 {
+    [Header("Wheel Settings")]
     [SerializeField]
-    bool m_isRight;     // 左右どちらのホイールなのか
+    bool m_isRight;         // 左右どちらのホイールなのか
     [SerializeField]
-    bool m_isFront;     // 前後どちらのホイールなのか
+    bool m_isFront;         // 前後どちらのホイールなのか
     [SerializeField]
-    bool m_isDrive;
+    bool m_isDrive;         //駆動輪か
     [SerializeField]
-    bool m_isSteer;
-    [SerializeField]
-    bool m_isIgnoreLoad;
-    [SerializeField]
-    bool m_trueTraction;  // 計算方法切り替え
+    bool m_isSteer;         //操舵輪か
+    //[SerializeField]
+    //bool m_trueTraction;  // 計算方法切り替え
 
 
     [Space]
+
     [SerializeField]
-    float m_mass;
+    float m_mass = 32.0f;       //重さ
+
     [SerializeField]
-    float m_radius;
+    float m_radius = 0.3343f;   //ホイール半径 リア0.3395
     [SerializeField]
-    float m_width;
+    float m_width = 0.2f;       //太さ
     [SerializeField]
     LayerMask m_layerMask = Physics.IgnoreRaycastLayer;
     [SerializeField]
-    Transform m_visual;
+    float m_wheelRPM;           //ホイール回転数
+
+
+
+    [Header("Components")]
     [SerializeField]
-    float m_wheelRPM;
+    Transform m_Car_Visualtransform;    //メッシュのtransform
+    [SerializeField]
+    Suspension m_Suspension;            //サスペンションのオブジェクト
 
     Rigidbody m_parentRigid;
-    RaycastHit m_raycastHit;
+    public RaycastHit m_raycastHit;
     bool m_bOnGround;
 
-    [Header("Property")]
+
+
+    [Header("Force Property")]
     // 車体に加える力
-    [SerializeField,ShowInInspector]
-    Vector3 m_totalF;                 // 最終的にAddforceする力
-    [SerializeField,ShowInInspector]
-    float m_tractionT;                // 牽引力
-    [SerializeField,ShowInInspector]
-    float m_driveT;                   // 駆動トルク
-    float m_brakeT;                   // ブレーキトルク
-    float m_longF;                    // 縦力
-    float m_latF;                     // 横力
-    float m_load;                     // 荷重
+    [SerializeField, ShowInInspector]
+    Vector3 m_totalF;                   //最終的にAddforceする力
+    [SerializeField, ShowInInspector]
+    float m_tractionT;                  //牽引力
+    [SerializeField, ShowInInspector]
+    float m_driveT;                     //駆動トルク
+    float m_brakeT;                     //ブレーキトルク
+    float m_longF;                      //縦力
+    float m_latF;                       //横力
+    float m_load;                       //荷重
+
+
 
     // 速度関連
-    Vector3 m_wheelVelocity;
-    float m_longSpeed; 
-    float m_latSpeed;
-    [SerializeField,ShowInInspector]
-    float m_longSlipVelocity;   // 縦方向スリップ速度
+    [Header("Speed Property")]
+    [SerializeField, ShowInInspector]
+    float m_longSlipVelocity;           //縦方向スリップ速度
     [SerializeField]
-    float m_angularVelocity;    // 角速度
-    float m_inertia;            // 慣性モーメント
+    float m_angularVelocity;            //角速度
+    Vector3 m_wheelVelocity;
+    float m_longSpeed;
+    float m_latSpeed;
+    float m_inertia;                    //慣性モーメント
+
+
 
     [Header("MagicFormula")]
-     [SerializeField, ShowInInspector]
-    float m_slipRatio;          // 実際のスリップ率
-    float m_diffSlipRatio;      // 微分スリップ率
-    [SerializeField,ShowInInspector]
-    float m_slipAngle;                         //スリップ角
+    [SerializeField, ShowInInspector]
+    float m_slipRatio;                  //実際のスリップ率
+    float m_diffSlipRatio;              //微分スリップ率
+    [SerializeField, ShowInInspector]
+    float m_slipAngle;                  //スリップ角
 
-	// 摩擦
-	[SerializeField]
-	float m_frictonCoef = 1f;  // 摩擦係数
-	[SerializeField,ShowInInspector]
+
+
+    // 摩擦
+    [SerializeField]
+    float m_frictonCoef = 1f;           //摩擦係数 何故か2fになってた
+    [SerializeField, ShowInInspector]
     bool m_isWheelLocked;
+
     [SerializeField]
     MagicFormula m_longForceCurve;
     [SerializeField]
     MagicFormula m_latForceCurve;
-    [SerializeField,Range(0.1f,1f)]
-    float m_relaxationLength;
-    float m_steerAngle;
-   
 
-    [Header("Suspension")]
-    // サスペンション関連
-    [SerializeField]
-    float m_suspensionDistance;             // サスペンションの最大伸長距離(ローカル座標)
-    [SerializeField]
-    SimpleSpringJoint m_suspensionSpring;   // バネの各種パラメータを設定
-    [SerializeField,ShowInInspector]
-    float m_suspensionLoad;                  // サスペンションから計算した上下荷重
+    [SerializeField, Range(0.1f, 1f)]
+    float m_relaxationLength;
+
+    float m_steerAngle;
+
+
 
     // RayCast
     [Header("MultiRaycast")]
@@ -108,7 +119,7 @@ public class WheelController2024 : MonoBehaviour
     public bool IsGround => m_bOnGround;
 
     // 前後どちらのホイールか判定用(ブレーキバイアスで使用)
-    public bool IsFrontSide  => m_isFront;
+    public bool IsFrontSide => m_isFront;
 
     // 左右どちらのホイールか判定用(アッカーマンアングルの計算で使用)
     public bool IsRightSide => m_isRight;
@@ -118,12 +129,6 @@ public class WheelController2024 : MonoBehaviour
 
     // 操舵輪か判定用
     public bool IsSteer => m_isSteer;
-
-    public bool TrueTraction
-    {
-        get => m_trueTraction;
-        set => m_trueTraction = value;
-    }
 
     public float SteerAngle
     {
@@ -137,7 +142,7 @@ public class WheelController2024 : MonoBehaviour
         }
     }
 
-  
+
 
     public float Radius => m_radius;
     public float Inertia => m_inertia;
@@ -161,45 +166,46 @@ public class WheelController2024 : MonoBehaviour
 
     public MagicFormula LongFrictionCurve => m_longForceCurve;
     public MagicFormula LatFrictionCurve => m_latForceCurve;
-#endregion
+    #endregion
 
 
-// Start is called before the first frame update
-	void Start()
+    // Start is called before the first frame update
+    void Start()
     {
         // Rigidbodyを取得
         m_parentRigid = GetComponentInParent<Rigidbody>();
 
         // 慣性モーメントを計算
-        m_inertia = m_mass * Mathf.Pow(m_radius,2f) / 2f;
+        m_inertia = m_mass * Mathf.Pow(m_radius, 2f) / 2f;
 
         // 初期荷重(四等分)
-		m_load = m_parentRigid.mass / 4f * Physics.gravity.magnitude;
+        m_load = m_parentRigid.mass / 4f * Physics.gravity.magnitude;
 
         // 各種初期化
         m_latForceCurve.Initialize();
         m_longForceCurve.Initialize();
-		m_driveT = 0f;
+        m_driveT = 0f;
         m_angularVelocity = 0f;
-	}
+    }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        UpdateWheelHit();
+        m_bOnGround = IsWheelHit_Ground();
+        m_load = m_Suspension.GetSuspensionLoad();
 
         // ステアリングの角度に曲げる
-        m_visual.localEulerAngles = transform.localEulerAngles = new Vector3(0, m_steerAngle, 0);
+        m_Car_transform.localEulerAngles = transform.localEulerAngles = new Vector3(0, m_steerAngle, 0);
 
         if (m_bOnGround)
         {
-            UpdateSuspension();
+            //UpdateSuspension();
 
             UpdateVelocity();
         }
         else
         {
-            m_visual.position = transform.position + (-transform.up * m_suspensionDistance);
+            m_Car_transform.position = transform.position + (-transform.up * m_Suspension.GetSuspensionDistance());
         }
 
     }
@@ -221,16 +227,16 @@ public class WheelController2024 : MonoBehaviour
 
         CalcTotalForce();
 
-		// 車にかかっている力を可視化
-		Debug.DrawRay(m_visual.transform.position, transform.forward * m_longF, Color.cyan);
-		Debug.DrawRay(m_visual.transform.position, transform.right * m_latF, Color.red);
+        // 車にかかっている力を可視化
+        Debug.DrawRay(m_Car_transform.transform.position, transform.forward * m_longF, Color.cyan);
+        Debug.DrawRay(m_Car_transform.transform.position, transform.right * m_latF, Color.red);
 
 
-		// 複合タイヤ力計算
-		CalcCombineForce(out m_longF,out m_latF);
+        // 複合タイヤ力計算
+        CalcCombineForce(out m_longF, out m_latF);
 
-        if(m_trueTraction)
-            m_tractionT = m_longF * m_load * m_radius;
+        //if (m_trueTraction)
+        //    m_tractionT = m_longF * m_load * m_radius;
 
         // 駆動トルクとブレーキトルクから角速度を更新
         UpdateAngularVelocity();
@@ -242,73 +248,27 @@ public class WheelController2024 : MonoBehaviour
 
 
         // 総力の計算
-        m_totalF += transform.forward * m_longF * m_load;
-        m_totalF += transform.right * m_latF * m_load;
+        m_totalF += m_load * m_longF * transform.forward;
+        m_totalF += m_latF * m_load * transform.right;
 
-		// RigidbodyにAddForceする
-		if (!float.IsNaN(m_totalF.magnitude))
+        // RigidbodyにAddForceする
+        if (!float.IsNaN(m_totalF.magnitude))
             m_parentRigid.AddForceAtPosition(m_totalF, m_raycastHit.point, ForceMode.Force);
 
         //Debug.Log(gameObject.name + "::" + m_longF);
     }
 
     /// <summary>
-    /// サスペンション更新
-    /// 07/05 22CU0235 諸星大和 作成
-    /// </summary>
-    void UpdateSuspension()
-    {
-        // ローカルの下方向をワールドに変換
-        Vector3 down = transform.TransformDirection(Vector3.down);
-       
-        // 車輪の回転を考慮せずに、車輪が地面に対してどのくらいの速さで動いているかを計算する。
-        Vector3 velocityAtTouch = m_parentRigid.GetPointVelocity(m_raycastHit.point);
-
-        // スプリングの圧縮を計算する
-        // 位置の差をサスペンションの全範囲で割る
-        float compression = m_raycastHit.distance / (m_suspensionDistance + m_radius);
-        //Debug.Log("01 compression : " + compression);
-        compression = -compression + 1;
-        //Debug.Log("02 compression : " + compression);
-
-        // 最終的な力
-        Vector3 force = -down * compression * m_suspensionSpring.Spring;
-        //Debug.Log("force : " + force);
-
-        // 接触点の速度をローカル空間に変換したもの
-        Vector3 t = transform.InverseTransformDirection(velocityAtTouch);
-        //Debug.Log("t : " + t);
-
-        // ローカルXおよび、Z方向 = 0
-        // ここで、tはショックが収縮/膨張する速度と等しいとする。
-        t.z = 0;
-        t.x = 0;
-
-        // ワールド空間 * 減衰
-        // この力はサスペンションの摩擦による力をシミュレートしています。
-        Vector3 shockDrag = transform.TransformDirection(t) * -m_suspensionSpring.Damper;
-
-        // 
-        m_parentRigid.AddForceAtPosition(force + shockDrag, transform.position);
-        m_suspensionLoad = (force + shockDrag).magnitude;
-
-        m_visual.position = transform.position + (down * (m_raycastHit.distance - m_radius));
-    }
-
-
-    /// <summary>
     /// レイを1本飛ばして地面との当たり判定を取る
     /// </summary>
-    void UpdateWheelHit()
+    bool IsWheelHit_Ground()
     {
+        bool IsHit;
+
         // 地面との当たり判定の更新
-        m_bOnGround = Physics.Raycast(new Ray(transform.position, -transform.up), out m_raycastHit, m_radius + m_suspensionDistance, m_layerMask);
+        IsHit = Physics.Raycast(new Ray(transform.position, -transform.up), out m_raycastHit, m_radius + m_Suspension.GetSuspensionDistance(), m_layerMask);
 
-
-        //RaycastExpansion();
-
-        // 地面に飛ばすレイを可視化
-        //Debug.DrawRay(transform.position, -transform.up * m_radius, Color.red, 3f);
+        return IsHit;
     }
 
 
@@ -321,43 +281,42 @@ public class WheelController2024 : MonoBehaviour
         m_wheelVelocity = m_parentRigid.GetPointVelocity(m_raycastHit.point);
 
         m_longSpeed = Vector3.Dot(m_wheelVelocity, transform.forward);
-        m_latSpeed   = Vector3.Dot(m_wheelVelocity, transform.right);
-		m_longSlipVelocity = m_radius * m_angularVelocity - m_longSpeed;
-	}
+        m_latSpeed = Vector3.Dot(m_wheelVelocity, transform.right);
+        m_longSlipVelocity = m_radius * m_angularVelocity - m_longSpeed;
+    }
 
     /// <summary>
     /// ホイールの角速度(回転速度)を更新
     /// </summary>
     void UpdateAngularVelocity()
     {
-        
+
         float fixAngularVelocity = m_angularVelocity; // 一時計算用の変数
 
         // 加速力
         // 角加速度 = 角速度( = 速度/半径) / 単位時間
         float tractionAngularAccel = m_longSlipVelocity / m_radius / Time.fixedDeltaTime;
         // トルク = 角加速度 * 慣性モーメント
-        if(!m_trueTraction)
-            m_tractionT = tractionAngularAccel * m_inertia;
+        m_tractionT = tractionAngularAccel * m_inertia;
 
         float totalT = m_driveT - m_tractionT;
         float angularAccle = totalT / m_inertia;
         fixAngularVelocity += angularAccle * Time.fixedDeltaTime;
 
         // 回転方向
-		float prevRotationDirection = Mathf.Sign(fixAngularVelocity);
+        float prevRotationDirection = Mathf.Sign(fixAngularVelocity);
         if (fixAngularVelocity < float.Epsilon)
             prevRotationDirection = 0f;
 
-		// 減速力
-		m_brakeT = Mathf.Sign(fixAngularVelocity) * m_brakeT;
-		// 転がり抵抗
-		float rollresistT = Mathf.Sign(fixAngularVelocity) * 0.015f * m_load * m_radius;
+        // 減速力
+        m_brakeT = Mathf.Sign(fixAngularVelocity) * m_brakeT;
+        // 転がり抵抗
+        float rollresistT = Mathf.Sign(fixAngularVelocity) * 0.015f * m_load * m_radius;
 
         // 角速度を減少させる角加速度
         float angularDecele = (m_brakeT + rollresistT) / m_inertia;
         fixAngularVelocity -= angularDecele * Time.fixedDeltaTime;
-            
+
         float fixRotationDirection = Mathf.Sign(fixAngularVelocity);
         if (fixAngularVelocity < float.Epsilon)
             fixRotationDirection = 0f;
@@ -367,9 +326,9 @@ public class WheelController2024 : MonoBehaviour
         {
             // ブレーキを踏んだ時逆方向に回転しないように0を代入
             m_angularVelocity = 0f;
-           
+
             // 角速度を0に戻すとスリップ率がある程度の値のままな現象を確認
-            m_diffSlipRatio = 0f; 
+            m_diffSlipRatio = 0f;
             // →ブレーキを踏んだとき前後に動いてしまうので、ここで0を代入する
 
             m_isWheelLocked = true;
@@ -381,7 +340,7 @@ public class WheelController2024 : MonoBehaviour
         }
 
         m_wheelRPM = m_angularVelocity * CarPhysics.Rad2RPM;
-     
+
     }
 
     /// <summary>
@@ -390,9 +349,6 @@ public class WheelController2024 : MonoBehaviour
     void CalcTotalForce()
     {
         m_totalF = Vector3.zero;
-
-        if (m_isIgnoreLoad)
-            m_load = m_suspensionLoad;
 
         //----------------------------------------------------------------------------
         // 縦力の計算
@@ -403,11 +359,7 @@ public class WheelController2024 : MonoBehaviour
 
         m_diffSlipRatio += delta * Time.fixedDeltaTime;
         //m_diffSlipRatio = CalcRK4();
-        
 
-        // スリップ率が1000%を振り切れることがあるため100%でClamp
-        //if (m_diffSlipRatio > 1f)
-        //    m_diffSlipRatio = 1f;
 
         // 振動を減衰する発振周期
         float tau = 0.02f; // 調整の必要があるかもしれないが現状問題ない
@@ -446,14 +398,14 @@ public class WheelController2024 : MonoBehaviour
         // ローカル関数
         // それほどパフォーマンスには影響はない
         // f(t,y) = (Vsx - |Vx| * y) / B * t 
-        float calcDiffSR(float _t,float _y) 
+        float calcDiffSR(float _t, float _y)
             => ((m_longSlipVelocity - Mathf.Abs(m_longSpeed) * _y) / m_relaxationLength) * _t;
 
         float dt = Time.deltaTime;
         float h = Time.fixedDeltaTime;
 
         float k1 = calcDiffSR(dt, m_diffSlipRatio);
-        float k2 = calcDiffSR(dt + h / 2,m_diffSlipRatio + h / 2 * k1);
+        float k2 = calcDiffSR(dt + h / 2, m_diffSlipRatio + h / 2 * k1);
         float k3 = calcDiffSR(dt + h / 2, m_diffSlipRatio + h / 2 * k2);
         float k4 = calcDiffSR(dt + h, m_diffSlipRatio + h * k3);
         return m_diffSlipRatio + (k1 + 2 * k2 + 2 * k3 + k4) * h / 6;
@@ -487,38 +439,53 @@ public class WheelController2024 : MonoBehaviour
         _outLatF = m_latForceCurve.Evaluate(fixSlipAngle) * (slipAngle_normalized / combineSlip);
     }
 
-	void CalcCombineForce_SAE(out float _outLongF, out float _outLatF)
+    public bool GetOnGround()
     {
-	    // https://www.sae.org/publications/technical-papers/content/2023-01-0684/
+        return m_bOnGround;
+    }
 
-		// 各スリップのピーク値を取得
-		float slipRatio_peak = m_longForceCurve.PeakSlipRatio;
-		float slipAngle_peak = m_latForceCurve.PeakSlipAngle;
+    public RaycastHit GetRayCastHit()
+    {
+        return m_raycastHit;
+    }
 
-		// 正規化
-		float slipRatio_norm = m_slipRatio / slipRatio_peak;
-		float slipAngle_norm = m_slipAngle / slipAngle_peak;
+    public float GetWheelRadius()
+    {
+        return m_radius;
+    }
 
-		// 複合スリップ
-		float combineSlip = Mathf.Sqrt(m_slipRatio * m_slipRatio + m_slipAngle * m_slipAngle);
-		// 0除算回避
-		if (float.Epsilon > combineSlip)
-			combineSlip = float.Epsilon;
-		// 正規化複合スリップ
-		float combineSlip_norm = Mathf.Sqrt(slipRatio_norm * slipRatio_norm + slipAngle_norm * slipAngle_norm);
-		
-		_outLongF = m_slipRatio / (slipRatio_peak * combineSlip) * m_longForceCurve.Evaluate(combineSlip_norm * slipRatio_peak);
+    void CalcCombineForce_SAE(out float _outLongF, out float _outLatF)
+    {
+        // https://www.sae.org/publications/technical-papers/content/2023-01-0684/
+
+        // 各スリップのピーク値を取得
+        float slipRatio_peak = m_longForceCurve.PeakSlipRatio;
+        float slipAngle_peak = m_latForceCurve.PeakSlipAngle;
+
+        // 正規化
+        float slipRatio_norm = m_slipRatio / slipRatio_peak;
+        float slipAngle_norm = m_slipAngle / slipAngle_peak;
+
+        // 複合スリップ
+        float combineSlip = Mathf.Sqrt(m_slipRatio * m_slipRatio + m_slipAngle * m_slipAngle);
+        // 0除算回避
+        if (float.Epsilon > combineSlip)
+            combineSlip = float.Epsilon;
+        // 正規化複合スリップ
+        float combineSlip_norm = Mathf.Sqrt(slipRatio_norm * slipRatio_norm + slipAngle_norm * slipAngle_norm);
+
+        _outLongF = m_slipRatio / (slipRatio_peak * combineSlip) * m_longForceCurve.Evaluate(combineSlip_norm * slipRatio_peak);
         _outLatF = m_slipAngle / (slipAngle_peak * combineSlip) * m_latForceCurve.Evaluate(combineSlip_norm * slipAngle_peak);
 
-	}
+    }
 
-   
 
-	#region RaycastExpansion
-	/// <summary>
-	/// レイキャストを円形に飛ばす
-	/// </summary>
-	void RaycastExpansion()
+
+    #region RaycastExpansion
+    /// <summary>
+    /// レイキャストを円形に飛ばす
+    /// </summary>
+    void RaycastExpansion()
     {
 
         float radiusOffset = 0.0f;
@@ -563,7 +530,7 @@ public class WheelController2024 : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position - springOffset);
 
         // タイヤを描画
-        DrawWheelGizmo(m_radius * transform.lossyScale.x, m_width, m_visual.position, transform.up, transform.forward, transform.right);
+        DrawWheelGizmo(m_radius * transform.lossyScale.x, m_width, m_Car_transform.position, transform.up, transform.forward, transform.right);
 
         // サスペンションを描画
         DrawSuspensionGizmo();
@@ -601,7 +568,7 @@ public class WheelController2024 : MonoBehaviour
         }
 
 
-        
+
     }
 
     /// <summary>
@@ -610,15 +577,15 @@ public class WheelController2024 : MonoBehaviour
     void DrawSuspensionGizmo()
     {
         Gizmos.color = Color.green;
-       
+
         if (!m_bOnGround)
             Gizmos.color = Color.cyan;
 
         Gizmos.DrawLine(
             transform.position - transform.up * m_radius,
-            transform.position + (transform.up * m_suspensionDistance));
+            transform.position + (transform.up * m_Suspension.GetSuspensionDistance()));
 
-        Gizmos.DrawSphere(transform.position + transform.up * m_suspensionDistance, 0.1f);
+        Gizmos.DrawSphere(transform.position + transform.up * m_Suspension.GetSuspensionDistance(), 0.1f);
     }
     #endregion
 }
