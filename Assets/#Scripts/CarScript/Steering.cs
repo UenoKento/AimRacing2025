@@ -18,7 +18,7 @@ public class Steering
     float m_treadWidth;
     [SerializeField]
     float m_steeringGearRatio;
-    [SerializeField,Range(0f,90f)]
+    [SerializeField,Range(0f,450f)]
     float m_maxSteerAngle;
     [SerializeField, Range(180f, 450f)]
     float m_steeringRange = 450f;
@@ -30,12 +30,16 @@ public class Steering
     /// <param name="_isRight">右側のホイールかどうか</param>
     public float CalcSteerAngle(in float _steerInput, bool _isRight)
     {
+        //ステアリングの角度計算
 		float steerAngle = _steerInput * m_steeringRange / m_steeringGearRatio;
-        if(m_maxSteerAngle <= Mathf.Abs(steerAngle))
-        {
-            steerAngle = m_maxSteerAngle * Mathf.Sign(steerAngle);
-        }
 
+        //上限の設定
+        //if(m_maxSteerAngle <= Mathf.Abs(steerAngle))
+        //{
+        //    steerAngle = m_maxSteerAngle * Mathf.Sign(steerAngle);
+        //}
+
+        //
         switch (m_type) 
         {
             case SteeringType.Ackerman:

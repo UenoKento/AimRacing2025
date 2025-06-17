@@ -71,7 +71,7 @@ public class HandleManager : SingletonMonoBehaviour<HandleManager>
         }
         else if(!LogitechGSDK.LogiIsConnected(m_logiIndex))
         {
-            //Debug.LogError("LogiConnected(" + m_logiIndex + ")がfalseです。");
+            Debug.LogError("LogiConnected(" + m_logiIndex + ")がfalseです。");
         }
     }
 
