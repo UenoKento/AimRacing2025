@@ -13,15 +13,15 @@ public class Steering
     SteeringType m_type = SteeringType.Ackerman;
 
     [SerializeField]
-    float m_wheelBase;
+    float m_wheelBase = 2.59f;      //ホイールベース
     [SerializeField]
-    float m_treadWidth;
+    float m_treadWidth;             //トレッド幅
     [SerializeField]
-    float m_steeringGearRatio;
+    float m_steeringGearRatio;      //ステアとホイールのギア比
     [SerializeField,Range(0f,450f)]
-    float m_maxSteerAngle;
+    float m_maxSteerAngle;          //ステアのMax角度
     [SerializeField, Range(180f, 450f)]
-    float m_steeringRange = 450f;
+    float m_steeringRange = 450f;   //ステアの倍率
 
     /// <summary>
     /// ホイールのステア角を計算する
@@ -53,6 +53,7 @@ public class Steering
 		}
     }
 
+    //ホイールの
     float CalcAckermanAngle(float _steerAngle,bool _isRight)
     {
         _steerAngle *= Mathf.Deg2Rad;
@@ -82,11 +83,29 @@ public class Steering
 
     /// <summary>
     /// 内側の切れ角から外側の切れ角を計算する
+    /// 2025/06/18 小見川 処理の変更を行いました。
     /// </summary>
-    float CalcAckermanOutsideAngle(float _insideAngle,float _steerAngle)
+    float CalcAckermanOutsideAngle(float _insideAngle, float _steerAngle)
     {
-        float ackermanPer = m_treadWidth / m_wheelBase;
-        return _insideAngle - ackermanPer * (_insideAngle - _steerAngle);
+        //修正前の式
+        //float ackermanPer = m_treadWidth / m_wheelBase;
+        //return _insideAngle - ackermanPer * (_insideAngle - _steerAngle);
+
+        bool IsRight = true;
+
+        if (_insideAngle < 0)
+        {
+            _insideAngle *= -1;
+            IsRight = false;
+        }
+
+        float tanA = Mathf.Tan(_insideAngle * Mathf.Deg2Rad);
+
+        float angle = Mathf.Atan(m_wheelBase * tanA / ((m_treadWidth * tanA) + m_wheelBase)) * Mathf.Rad2Deg;
+
+        if (!IsRight) { angle *= -1; }
+
+        return angle;
     }
 
 }
