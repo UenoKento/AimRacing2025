@@ -22,7 +22,7 @@ public class Clutch2024
     [SerializeField,Range(0f,0.9f)]
     float m_clutchDamping;          // クラッチの振動を減衰させる
     [SerializeField]
-    Vector2 m_lockRange;      // クラッチを完全に繋げるRPM
+    Vector2 m_lockRange;            // クラッチを完全に繋げるRPM
 
     [SerializeField, ShowInInspector]
     bool m_isGearChanging;
@@ -36,9 +36,12 @@ public class Clutch2024
     float m_clutchSlip;
     [SerializeField,ShowInInspector]
     float m_clutchAngularVelocity;
+    [SerializeField, ShowInInspector]
     float m_engineAngularVelocity;
-    float m_gearRatio;
+    [SerializeField, ShowInInspector]
     float m_clutchInput;
+
+    float m_gearRatio;
 
     #region プロパティ
     public float ClutchTorque => m_clutchTorque;
@@ -88,7 +91,8 @@ public class Clutch2024
 
         // クラッチの入力が0.1f以上ある時はペダルの値で上書き
         // ※クラッチの入力は1.0(離)～0.0(踏)
-        if(m_clutchInput <= 0.9f)
+        //多分いらないかも
+        if (m_clutchInput <= 0.9f)
             m_clutchLock = m_clutchInput;
 
         // ギアチェンジ時のクラッチ切り
@@ -97,9 +101,9 @@ public class Clutch2024
             m_clutchLock = 0f;
 
         // クラッチの滑り速度
+        if (m_clutchAngularVelocity < 0)
+            m_clutchAngularVelocity = 0;
         m_clutchSlip = m_engineAngularVelocity - m_clutchAngularVelocity;
-        if (m_gearRatio == 0f)
-            m_clutchSlip = 0f;
 
 
         float prevClutchTorque = m_clutchTorque;
@@ -109,8 +113,7 @@ public class Clutch2024
         m_clutchTorque = Mathf.Clamp(m_clutchTorque, -m_engineMaxTorque * m_clutchCapacity, m_engineMaxTorque * m_clutchCapacity);
 
         // クラッチの値の振動を減衰
-        m_clutchTorque = m_clutchTorque + ((prevClutchTorque - m_clutchTorque) * m_clutchDamping);
-        
+        //m_clutchTorque += ((prevClutchTorque - m_clutchTorque) * m_clutchDamping);
 
         return m_clutchTorque;
     }
