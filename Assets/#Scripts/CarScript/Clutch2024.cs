@@ -15,9 +15,9 @@ public class Clutch2024
     bool m_clutchAuto = true;
     [SerializeField]
     float m_clutchStiffness;            // 剛性[rad/s]
-    [SerializeField]
+    [SerializeField, ShowInInspector]
     float m_Calclate_ClutchMaxTorque;   //計算したクラッチの現在の許容トルク
-    [SerializeField]
+    [SerializeField, ShowInInspector]
     float m_CrimpingForce;              //クラッチの圧着力
     [SerializeField, Range(0f, 0.9f)]
     float m_clutchDamping;              // クラッチの振動を減衰させる
@@ -26,7 +26,7 @@ public class Clutch2024
     [SerializeField]
     float m_DesignTorque;               //設計トルク(最大エンジントルクの1.5~2.0倍)
     [SerializeField]
-    float m_frictionCoefficient;        //クラッチの摩擦係数(0.55)
+    float m_frictionCoef;               //クラッチの摩擦係数(0.55)
     [SerializeField]
     float m_ClutchOD;                   //クラッチの外径[m](0.35)
     [SerializeField]
@@ -99,26 +99,27 @@ public class Clutch2024
     float CalcClutchTorque()
     {
         // オートクラッチ
-        if (m_clutchAuto)
-            ClutchLockAuto();
+        if (m_clutchAuto) ClutchLockAuto();
+
 
         //圧着力の計算
         float Rm = (m_ClutchOD + m_ClutchID) / 4;
-        float DiskForce = m_frictionCoefficient * Rm * m_ClutchSurface;
-
+        float DiskForce = m_frictionCoef * Rm * m_ClutchSurface;
         m_CrimpingForce = m_DesignTorque / DiskForce * m_clutchInput;
 
         //クラッチの最大許容トルクの計算
         m_Calclate_ClutchMaxTorque = DiskForce * m_CrimpingForce;
 
-        // クラッチの滑り速度
-        if (m_clutchAngularVelocity < 0)
-            m_clutchAngularVelocity = 0;
-        m_clutchSlip = m_engineAngularVelocity - m_clutchAngularVelocity;
+		// クラッチの滑り速度
+		//if (m_clutchAngularVelocity < 0)
+		//    m_clutchAngularVelocity = 0;
 
-        float prevClutchTorque = m_OutputTorque;
+      //m_pclutchslip
+		m_OutputTorque = m_clutchAngularVelocity * m_clutchInput;
+
+        //float prevClutchTorque = m_OutputTorque;
         // クラッチトルク = クラッチの接続量(今はなし) * クラッチの滑り量 * 剛性
-        m_OutputTorque = m_clutchSlip * m_clutchStiffness;
+        //m_OutputTorque = m_clutchSlip;
         // トルクの制限する(されている場合はクラッチが滑っていると同義)
         m_OutputTorque = Mathf.Clamp(m_OutputTorque, -m_Calclate_ClutchMaxTorque, m_Calclate_ClutchMaxTorque);
 
