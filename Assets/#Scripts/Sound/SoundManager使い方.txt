@@ -1,0 +1,41 @@
+◇SoundManagereの使い方
+・準備編
+1.ヒエラルキーにエンプティを用意し"SoundManager"と名付け、
+tagを"SoundManager"に設定します。
+設定したエンプティに"SoundManager(Script)"をAdd Componentします。
+
+2.1で準備した"SoundManager"のインスペクター上にある"BGM_Clips","SE_Clips"を
+"SoundManager管理BGM_SE_リスト.txt"に書いている通りに設定します。
+その後"BGM Audio Mixer","SE Audio Mixer"にAudioMixerの設定をします。
+
+・使用編
+用途に合わせて以下の通りに記述してください
+
+BGM再生			：
+"SoundManager.Instance.PlayBGM(SoundManager.BGM_Type.any clip,loopFlg,volume)"
+
+BGMフェードイン		：
+"SoundManager.Instance.FadeInBGM(SoundManager.BGM_Type.any clip,loopFlg,fadeTime)"
+
+BGMフェードアウト		：
+"SoundManager.Instance.FadeOutBGM(fadeTime)"
+
+BGM完全停止			：
+"SoundManager.Instance.StopBGM"
+
+BGM一時停止			：
+"SoundManager.Instance.MuteBGM()"
+
+一時停止中のBGMの再生	：
+"SoundManager.Instance.ResumeBGM()"
+
+SE再生			：
+"SoundManager.Instance.PlaySE(SoundManager.SE_Type.any clip)"
+
+SE停止			：
+"SoundManager.Instance.StopSE()"
+
+※any clipはお好きなものを指定してください。
+詳しくは"SoundManager管理BGM_SE_リスト.txt"の"音声リスト"をご覧ください
+また、1つのBGM再生中に"PlayBGM()"を行うとクロスフェード処理により、
+再生中のBGMをフェードアウトさせ、新しいBGMをフェードインさせます。

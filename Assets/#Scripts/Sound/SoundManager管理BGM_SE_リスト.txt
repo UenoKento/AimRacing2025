@@ -1,0 +1,35 @@
+◇AimRacing2022　SoundManager管理BGM・SEリスト
+"音声リスト"	"AudioClipの名前"				"使う場面"		
+
+・BGM
+OP			aim_op2022_enginesound_include-01	TitleのBGM
+Entry			aim menu4					EntryのBGM
+InGame		AIM PLAY BGM				InGameのBGM
+Result		AIM リザルト謝辞				ResultのBGM
+
+・SE
+OPPushSE		SE_cinema1_17_アクセル			Titleでアクセルを踏んだ時のSE
+GlitchSE		Noiz_aim					グリッチのSE
+Welcome		welcome					ようこそAIMの世界へ
+GuideATMT		Please select the transmission	ATMTを選択してください
+CursorSE		cursor					カーソル遷移時のSE
+PushGaspedal	gaspedal					アクセルを踏んでください
+EntryPushSE		PushOK					Entryでアクセルを踏んだ時のSE
+Doon			Aim_Cinema					文字・ロゴ表示時のSE
+AT			Automatic					AT選択時のナレーション
+MT			Manual					MT選択時のナレーション
+Go			Go						カウント時のGO
+One			one						カウント時の1
+Two			two						カウント時の2
+Three			three						カウント時の3
+GoSignal		Gosignal					カウント中のSE
+CountSignal		Countsignal					GOの時のSE
+Goal			aim2019_goal				ゴール時のナレーション
+LapSignal		lapsignal					区間タイム時のSE
+Easy_L		EasyLeft					優しい左カーブ
+Turn_L		TurnLeft					普通の左カーブ
+Acute_L		AcuteLeft					急な左カーブ
+Easy_R		EasyRight					優しい右カーブ
+Turn_R		TurnRight					普通の右カーブ
+Acute_R		AcuteRight					急な右カーブ
+Audience		kansei_se_start_goal			観客の歓声
