@@ -1,0 +1,217 @@
+fileFormatVersion: 2
+guid: fcf3accec9a66a54996693b24ab441ca
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: '#col01 ver3'
+    100002: '#col02_ver3'
+    100004: '#Enseki_Line_Left_01'
+    100006: '#Enseki_Line_Right_01'
+    100008: '#Ground_All'
+    100010: '#Gurdrail_All'
+    100012: '#Gurdrail_stem_ok1'
+    100014: '#Gurdrail_stem_ok2'
+    100016: '#Gurdrail_waiya'
+    100018: '#Gurdrail_waiya 1'
+    100020: '#Losokutai_Left_Line'
+    100022: '#Right_Rosokutai'
+    100024: '#tominn_no_mori'
+    100026: Gurdrail_bridge_Line
+    100028: //RootNode
+    400000: '#col01 ver3'
+    400002: '#col02_ver3'
+    400004: '#Enseki_Line_Left_01'
+    400006: '#Enseki_Line_Right_01'
+    400008: '#Ground_All'
+    400010: '#Gurdrail_All'
+    400012: '#Gurdrail_stem_ok1'
+    400014: '#Gurdrail_stem_ok2'
+    400016: '#Gurdrail_waiya'
+    400018: '#Gurdrail_waiya 1'
+    400020: '#Losokutai_Left_Line'
+    400022: '#Right_Rosokutai'
+    400024: '#tominn_no_mori'
+    400026: Gurdrail_bridge_Line
+    400028: //RootNode
+    2100000: road5
+    2100002: 'Material #2101'
+    2100004: 05 - Default
+    2100006: guardrail
+    2100008: 20 - Default
+    2100010: tominhouse
+    2100012: 17 - Default
+    2100014: 21 - Default
+    2100016: guardrail2
+    2100018: 01 - Default
+    2100020: hasi
+    2100022: 03 - Default
+    2100024: GuardrailWier
+    2100026: guardrailpost
+    2100028: 02 - Default
+    2100030: 06 - Default
+    2100032: 15 - Default
+    2100034: road1
+    2100036: road2
+    2100038: 'Material #183'
+    2100040: road3
+    2100042: road4
+    2100044: road7
+    2100046: road10
+    2100048: road9
+    2100050: road8
+    2100052: 'Material #348'
+    2100054: Road1
+    2100056: Road2
+    2100058: Road3
+    2100060: Road4
+    2100062: 'Material #353'
+    2100064: 'Material #354'
+    2100066: 'Material #355'
+    2100068: 'Material #356'
+    2100070: 'Material #358'
+    2100072: 'Material #2095'
+    2100074: 'Material #2096'
+    2100076: 'Material #2094'
+    2100078: 'Material #2097'
+    2100080: 'Material #2098'
+    2100082: 'Material #2099'
+    2100084: 'Material #2100'
+    2100086: 'Material #2102'
+    2100088: 'Material #2104'
+    2100090: 'Material #2105'
+    2100092: 'Material #2106'
+    2100094: 'Material #2107'
+    2100096: 'Material #2108'
+    2100098: road6
+    2100100: 'Material #2109'
+    2100102: 'Material #2111'
+    2100104: 'Material #2110'
+    2300000: '#col01 ver3'
+    2300002: '#col02_ver3'
+    2300004: '#Enseki_Line_Left_01'
+    2300006: '#Enseki_Line_Right_01'
+    2300008: '#Ground_All'
+    2300010: '#Gurdrail_All'
+    2300012: '#Gurdrail_stem_ok1'
+    2300014: '#Gurdrail_stem_ok2'
+    2300016: '#Gurdrail_waiya'
+    2300018: '#Gurdrail_waiya 1'
+    2300020: '#Losokutai_Left_Line'
+    2300022: '#Right_Rosokutai'
+    2300024: '#tominn_no_mori'
+    2300026: Gurdrail_bridge_Line
+    3300000: '#col01 ver3'
+    3300002: '#col02_ver3'
+    3300004: '#Enseki_Line_Left_01'
+    3300006: '#Enseki_Line_Right_01'
+    3300008: '#Ground_All'
+    3300010: '#Gurdrail_All'
+    3300012: '#Gurdrail_stem_ok1'
+    3300014: '#Gurdrail_stem_ok2'
+    3300016: '#Gurdrail_waiya'
+    3300018: '#Gurdrail_waiya 1'
+    3300020: '#Losokutai_Left_Line'
+    3300022: '#Right_Rosokutai'
+    3300024: '#tominn_no_mori'
+    3300026: Gurdrail_bridge_Line
+    4300000: '#col02_ver3'
+    4300002: '#tominn_no_mori'
+    4300004: Gurdrail_bridge_Line
+    4300006: '#Gurdrail_All'
+    4300008: '#Losokutai_Left_Line'
+    4300010: '#Right_Rosokutai'
+    4300012: '#Enseki_Line_Left_01'
+    4300014: '#Enseki_Line_Right_01'
+    4300016: '#Ground_All'
+    4300018: '#Gurdrail_waiya'
+    4300020: '#Gurdrail_waiya'
+    4300022: '#Gurdrail_stem_ok1'
+    4300024: '#Gurdrail_stem_ok2'
+    4300026: '#col01 ver3'
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
