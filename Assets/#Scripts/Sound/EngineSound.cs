@@ -41,7 +41,7 @@ public class EngineSound : MonoBehaviour
     FMOD.Studio.Bus m_MasterBus;
     
     // Vehicle
-    [SerializeField] private VehicleController2024 m_VehicleController;
+    [SerializeField] private VehicleController m_VehicleController;
 
     // SPEED
     [SerializeField] private float m_SPEED;
@@ -135,7 +135,7 @@ public class EngineSound : MonoBehaviour
 
     void Reset()
     {
-        m_VehicleController = FindFirstObjectByType<VehicleController2024>();
+        m_VehicleController = FindFirstObjectByType<VehicleController>();
     }
 
     private void Awake()

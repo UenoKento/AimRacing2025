@@ -4,7 +4,7 @@ using UnityEngine;
 public class LaunchController : MonoBehaviour
 {
 	[SerializeField]
-	VehicleController2024 m_vehicle;
+	VehicleController m_vehicle;
 
 	[SerializeField]
 	List<TireSound> m_tiresound;

@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 public class HandleManager : SingletonMonoBehaviour<HandleManager>
 {
     [SerializeField]
-    VehicleController2024 m_vehicleController;
+    VehicleController m_vehicleController;
     [SerializeField]
     WheelController2024 m_front;
     [SerializeField]

@@ -14,7 +14,7 @@ public class GameStateManager_Movie : GameStateManagerBase
 	ChairRideOperator m_drive = new ChairRideOperator();
 
     [SerializeField]
-    VehicleController2024 m_vehicle;
+    VehicleController m_vehicle;
 
     [SerializeField]
     FadeManager m_fadeManager;
@@ -41,6 +41,7 @@ public class GameStateManager_Movie : GameStateManagerBase
         m_moviePlay.Play();
 
         Music.Play("BGM_Map");
+
         m_vehicle.PullUp(true);
 
         m_startAction.enabled = false;

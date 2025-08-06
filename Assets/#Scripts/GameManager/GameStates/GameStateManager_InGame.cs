@@ -4,7 +4,7 @@ using UnityEngine;
 public class GameStateManager_InGame : GameStateManagerBase
 {
 	[SerializeField]
-	VehicleController2024 m_vehicle;
+	VehicleController m_vehicle;
 
     [SerializeField]
     AsyncSceneChanger m_sceneChanger;
@@ -19,10 +19,10 @@ public class GameStateManager_InGame : GameStateManagerBase
 	FadeManager m_fadeManager;
 
 	// ドラマ用
-	[SerializeField]
-	GameObject m_goalImage;
+	//[SerializeField]
+	//GameObject m_goalImage;
 
-	Coroutine coroutine;
+	//Coroutine coroutine;
 
 	int _state = 0;
 	public override void Initialize()
@@ -40,11 +40,11 @@ public class GameStateManager_InGame : GameStateManagerBase
 
 		// ミッション設定
 		if (GameManager.Instance.DrivingSettings.isAT)
-			m_vehicle.Transmission.Type = Transmission2024.TransmissionType.Automatic;
+			m_vehicle.Transmission.Type = Transmission.TransmissionType.Automatic;
 		else
-			m_vehicle.Transmission.Type = Transmission2024.TransmissionType.Manual;
+			m_vehicle.Transmission.Type = Transmission.TransmissionType.Manual;
 
-		m_goalImage.SetActive(false);
+		//m_goalImage.SetActive(false);
 	}
 
     public override void StateUpdate()
@@ -64,10 +64,10 @@ public class GameStateManager_InGame : GameStateManagerBase
 
 				_state = 1;
 
-				if (coroutine != null) { return; }
+				//if (coroutine != null) { return; }
 
-				// ゴールの文字を表示
-				coroutine = StartCoroutine(a(0.0f,1.0f));
+				//// ゴールの文字を表示
+				//coroutine = StartCoroutine(a(0.0f,1.0f));
 
 
 			}
@@ -90,14 +90,14 @@ public class GameStateManager_InGame : GameStateManagerBase
 		Debug.Log("ChangeState[from Ingame]");
     }
 
-	IEnumerator a(float waitTime_1st ,float waitTime_2nd)
-	{
-		yield return new WaitForSeconds(waitTime_1st);
-		m_goalImage.SetActive(true);
+	//IEnumerator a(float waitTime_1st ,float waitTime_2nd)
+	//{
+	//	yield return new WaitForSeconds(waitTime_1st);
+	//	m_goalImage.SetActive(true);
 
-		yield return new WaitForSeconds(waitTime_2nd);
-		// フェードアウト開始
-		m_fadeManager.PlayFadeOut();
+	//	yield return new WaitForSeconds(waitTime_2nd);
+	//	// フェードアウト開始
+	//	m_fadeManager.PlayFadeOut();
 
-	}
+	//}
 }

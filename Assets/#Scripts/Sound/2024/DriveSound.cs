@@ -4,13 +4,13 @@ using FMODUnity;
 public class DriveSound : MonoBehaviour
 {
     [SerializeField]
-    VehicleController2024 m_vehicle;
+    VehicleController m_vehicle;
 
     [SerializeField]
     EventReference m_driveEventRef;
 
     FMOD.Studio.EventInstance m_driveEvent;
-    Transmission2024 m_mission;
+    Transmission m_mission;
 
     [SerializeField]
     float m_coastInterval = 2f;

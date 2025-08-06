@@ -74,7 +74,7 @@ public class Load2024 : MonoBehaviour
 
     #region Inspecterに非表示
     // VehicleController
-    private VehicleController2024 m_vehicleController;
+    private VehicleController m_vehicleController;
 
     // 車の剛体
     private Rigidbody m_vehicleRigitbody;   // 車の剛体
@@ -153,7 +153,7 @@ public class Load2024 : MonoBehaviour
         m_graundNomal = Vector3.zero;
         #endregion
         m_vehicle = this.gameObject;
-        m_vehicleController = m_vehicle.GetComponent<VehicleController2024>();
+        m_vehicleController = m_vehicle.GetComponent<VehicleController>();
         m_vehicleRigitbody = m_vehicle.GetComponent<Rigidbody>();
         // 車重の設定
         m_weight = m_vehicleRigitbody.mass * Physics.gravity.magnitude;

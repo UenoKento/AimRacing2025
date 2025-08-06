@@ -6,15 +6,13 @@
  *          2024/09/19  最終更新
  */
 
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
 using Unity.VisualScripting;
+using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody))]
-public class VehicleController2024 : MonoBehaviour
+public class VehicleController : MonoBehaviour
 {
 	[Space]
 	[SerializeField]
@@ -25,19 +23,19 @@ public class VehicleController2024 : MonoBehaviour
 
     [Space]
     [SerializeField]
-    Engine2024 m_engine;
+    Car_Engine m_engine;
 
     [Space]
     [SerializeField]
-    Clutch2024 m_clutch;
+    Clutch m_clutch;
 
     [Space]
     [SerializeField]
-    Transmission2024 m_mission;
+    Transmission m_mission;
 
     [Space]
     [SerializeField]
-    Differential2024 m_differential;
+    Differential m_differential;
 
     [Space]
     [SerializeField]
@@ -49,6 +47,10 @@ public class VehicleController2024 : MonoBehaviour
 
     Rigidbody m_rigidbody;
 
+	[SerializeField]
+	UI_StarCountDown startCountDown;
+
+
     // Input
     float m_steerInput;
     float m_accelInput = 0f;
@@ -57,8 +59,8 @@ public class VehicleController2024 : MonoBehaviour
 
     #region プロパティ
     public Rigidbody Rigidbody => m_rigidbody;
-    public Transmission2024 Transmission => m_mission;  
-    public Engine2024 Engine => m_engine;  
+    public Transmission Transmission => m_mission;  
+    public Car_Engine Engine => m_engine;  
     public float KPH => Mathf.Clamp(m_KPH, 0f, float.PositiveInfinity);
     public float EngineRPM => m_engine.RPM;
     public int ActiveGear => m_mission.ActiveGear;
@@ -89,7 +91,6 @@ public class VehicleController2024 : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-        m_engine.Initialize();
         m_mission.Initialize();
 
         TryGetComponent<Rigidbody>(out m_rigidbody);
@@ -99,8 +100,11 @@ public class VehicleController2024 : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        // ギア切り替え
-        m_mission.FixedUpdate(m_engine.RPM,m_KPH);
+        // カウント終わったら走り出す
+        StartUnlock();
+
+		// ギア切り替え
+		m_mission.FixedUpdate(m_engine.RPM,m_KPH);
 
         // 駆動トルク(トランスミッション) = エンジントルク * 現在のギア比
         float driveTorque = m_clutch.ClutchTorque * m_mission.CurrentGearRatio;
@@ -129,20 +133,26 @@ public class VehicleController2024 : MonoBehaviour
             }
         }
 
-        // トランスミッションのギア比を掛け合わせる
-        shaftVelocity *= m_mission.CurrentGearRatio;
+        // ギアの入力側の値を計算する
+        float ClutchInputSide = shaftVelocity * m_mission.CurrentGearRatio;
+
+        // ニュートラルだったとき
+        if (m_mission.CurrentGearRatio == 0f)
+        {
+            // クラッチの出力
+            ClutchInputSide = m_engine.RPM * CarPhysics.RPM2Rad;
+        }
 
         // クラッチのインプット設定
         m_clutch.ClutchInput = m_clutchInput;
         m_clutch.GearChanging = m_mission.IsGearChanging;
 
         // クラッチトルクの更新
-        m_clutch.FixedUpdate(shaftVelocity, m_engine.RPM * CarPhysics.RPM2Rad, m_mission.CurrentGearRatio);
+        m_clutch.FixedUpdate(ClutchInputSide, m_engine.RPM * CarPhysics.RPM2Rad, m_mission.CurrentGearRatio);
 
-        m_engine.InjectionCut = m_mission.IsGearChanging;
         // エンジンの回転数の更新
+        m_engine.InjectionCut = m_mission.IsGearChanging;
         m_engine.FixedUpdate(m_accelInput, m_clutch.ClutchTorque);
-
 
         // 車速の計算
         m_KPH =  m_rigidbody.linearVelocity.magnitude * 3600f / 1000f;
@@ -151,10 +161,19 @@ public class VehicleController2024 : MonoBehaviour
 
     public void ChangeMissionType()
     {
-        if (m_mission.Type == Transmission2024.TransmissionType.Manual)
-            m_mission.Type = Transmission2024.TransmissionType.Automatic;
-        else if(m_mission.Type == Transmission2024.TransmissionType.Automatic)
-			m_mission.Type = Transmission2024.TransmissionType.Manual;
+        if     (m_mission.Type == Transmission.TransmissionType.Manual)
+                m_mission.Type =  Transmission.TransmissionType.Automatic;
+        else if(m_mission.Type == Transmission.TransmissionType.Automatic)
+		    	m_mission.Type =  Transmission.TransmissionType.Manual;
+	}
+
+    // カウント0になったら動かす
+    public void StartUnlock()
+    {
+        if(startCountDown._count <= 0)
+        {
+            PullUp(false);
+		}
 	}
 
     public void PullUp(bool _active)
@@ -164,20 +183,18 @@ public class VehicleController2024 : MonoBehaviour
         if(_active)
         {
             constraints = RigidbodyConstraints.FreezePositionX |
+                          //RigidbodyConstraints.FreezeRotationY |
                           RigidbodyConstraints.FreezePositionZ;
 		}
         else
         {
-            constraints = RigidbodyConstraints.None;
-        }
-
+			constraints = RigidbodyConstraints.None;
+		}
 
 		m_mission.IsPullUp = _active;
 		m_clutch.IsPullUp = _active;
 		m_rigidbody.constraints = constraints;
 	}
-
-    
 
     void SwitchingTrueTraction()
     {
@@ -187,4 +204,44 @@ public class VehicleController2024 : MonoBehaviour
             wheel.TrueTraction = !temp;
         }
 	}
+
+	// 土田　追記 06/10
+    // GUIの表示
+	private void OnGUI()
+	{
+		GUIStyle style = new GUIStyle(GUI.skin.label);
+		style.fontSize = 24;    // 文字の大きさ
+		style.normal.textColor = Color.white; // 文字の色
+		int y = 10; // Y座標を加算して表示位置をずらす
+
+		GUI.Label(new Rect(10, y, 500, 50), "Speed: " + m_KPH.ToString("F2") + " km/h", style);
+		y += 30;
+		GUI.Label(new Rect(10, y, 400, 50), "Engine RPM: " + m_engine.RPM.ToString("F2") + " rpm", style);
+		y += 30;
+		GUI.Label(new Rect(10, y, 400, 50), "Current Gear: " + m_mission.ActiveGear.ToString(), style);
+		y += 30;
+		GUI.Label(new Rect(10, y, 400, 50), "Clutch Torque: " + m_clutch.ClutchTorque.ToString("F2") + " Nm", style);
+		y += 30;
+
+		GUI.Label(new Rect(10, y, 400, 30), $"Accel Input: {m_accelInput:F2}", style);
+		y += 30;
+		GUI.Label(new Rect(10, y, 400, 30), $"Brake Input: {m_brakeInput:F2}", style);
+		y += 30;
+		GUI.Label(new Rect(10, y, 400, 30), $"Clutch Input: {m_clutchInput:F2}", style);
+		y += 30;
+		GUI.Label(new Rect(10, y, 400, 30), $"Steer Input: {m_steerInput:F2}", style);
+		y += 30;
+
+		// ステアリング角の表示
+		foreach (WheelController2024 wheel in m_wheelControllers)
+		{
+			if (wheel.IsFrontSide)
+			{
+				string side = wheel.IsRightSide ? "Right" : "Left";
+				GUI.Label(new Rect(10, y, 400, 30), $"{side} Front Steer Angle: {wheel.SteerAngle:F2} deg", style);
+				y += 30;
+			}
+		}
+	}
+
 }

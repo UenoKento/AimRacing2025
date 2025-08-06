@@ -14,7 +14,7 @@ public class LoadTransfer
     [Header("Vehicle")]
     [SerializeField] private GameObject m_vehicle = null;
     // VehicleController
-    private VehicleController2024 m_vehicleController;
+    private VehicleController m_vehicleController;
 
     // é‘ÇÃçÑëÃ
     private Rigidbody m_vehicleRigitbody;   // é‘ÇÃçÑëÃ
@@ -55,7 +55,7 @@ public class LoadTransfer
     {
         // èâä˙âª
         m_prevVelocity = Vector3.zero;
-        m_vehicleController = m_vehicle.GetComponent<VehicleController2024>();
+        m_vehicleController = m_vehicle.GetComponent<VehicleController>();
         m_vehicleRigitbody = m_vehicle.GetComponent<Rigidbody>();
     }
 

@@ -11,7 +11,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
-public class Transmission2024
+public class Transmission
 {
     public enum TransmissionType
     {
@@ -110,10 +110,18 @@ public class Transmission2024
     {
         m_engineRPM = _engineRPM;
 
-        if(m_type == TransmissionType.Automatic)
-            AutomaticShift(_speed);
+        switch (m_type)
+        {
+            case TransmissionType.Automatic:
+                AutomaticShift(_speed);
+				break;
 
-        if (m_gearChangingTime <= Time.time - m_lastShiftChangeTime)
+    //        case TransmissionType.Manual:
+				//ManualShift();
+				//break;
+        }
+
+		if (m_gearChangingTime <= Time.time - m_lastShiftChangeTime)
             m_isGearChanging = false;
         else
             m_isGearChanging = true;
@@ -161,18 +169,18 @@ public class Transmission2024
 
     void ManualShift()
     {
-        if (Input.GetButtonDown("ShiftUp"))
-            ShiftUp();
+		if (Input.GetButtonDown("ShiftUp"))
+			ShiftUp();
 
-        if(Input.GetButtonDown("ShiftDown"))
-            ShiftDown();
-    }
+		if (Input.GetButtonDown("ShiftDown"))
+			ShiftDown();
+	}
 
-    public void ShiftUp()
+	public void ShiftUp()
     {
         // 停止中ならギアチェンジを無効化
-        if (m_isPullUp)
-            return;
+        //if (m_isPullUp)
+        //    return;
 
 		// 経過時間(現在の時間 - 保持した時間)が待機時間を上回っていたら
 		if (m_gearChangingTime <= Time.time - m_lastShiftChangeTime || m_currentGear <= 0)
@@ -190,8 +198,8 @@ public class Transmission2024
     public void ShiftDown()
     {
         // 停止中ならギアチェンジを無効化
-        if (m_isPullUp)
-            return;
+        //if (m_isPullUp)
+        //    return;
 
         if (m_banShiftDownRPM < m_engineRPM)
             return;
@@ -205,7 +213,7 @@ public class Transmission2024
 			m_lastShiftChangeTime = Time.time;
 		}
 
-		// -1を下回らないように補正
+		// -1を下回らないように補正        (後でClampに変更)
 		if (m_currentGear < -1)
             m_currentGear = -1;
     }

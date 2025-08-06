@@ -39,7 +39,7 @@ public class WheelController2024 : MonoBehaviour
     [SerializeField]
     float m_wheelRPM;
 
-    Rigidbody m_parentRigid;
+    Rigidbody m_vehicleRigidbody;
     RaycastHit m_raycastHit;
     bool m_bOnGround;
 
@@ -149,6 +149,11 @@ public class WheelController2024 : MonoBehaviour
 
     public float LongForce => m_longF * m_load;
 
+    public float SuspensionLoad
+    {
+        get => m_suspensionLoad;
+    }
+
     // 速度関連
     public Vector3 PatchVelocity => m_wheelVelocity;
     public float LongSpeed => m_longSpeed;
@@ -167,14 +172,14 @@ public class WheelController2024 : MonoBehaviour
 // Start is called before the first frame update
 	void Start()
     {
-        // Rigidbodyを取得
-        m_parentRigid = GetComponentInParent<Rigidbody>();
+		// Rigidbodyを取得
+		m_vehicleRigidbody = GetComponentInParent<Rigidbody>();
 
         // 慣性モーメントを計算
         m_inertia = m_mass * Mathf.Pow(m_radius,2f) / 2f;
 
         // 初期荷重(四等分)
-		m_load = m_parentRigid.mass / 4f * Physics.gravity.magnitude;
+		m_load = m_vehicleRigidbody.mass / 4f * Physics.gravity.magnitude;
 
         // 各種初期化
         m_latForceCurve.Initialize();
@@ -203,6 +208,8 @@ public class WheelController2024 : MonoBehaviour
         }
 
     }
+    [SerializeField]
+    float kakkokari = 0.0f;
 
     /// <summary>
     /// 縦横方向にかかる力の計算(VehicleControllerから駆動トルクを渡す)
@@ -240,14 +247,13 @@ public class WheelController2024 : MonoBehaviour
         if (m_isWheelLocked)
             m_longF = Mathf.Sign(m_longSlipVelocity);
 
-
-        // 総力の計算
-        m_totalF += transform.forward * m_longF * m_load;
-        m_totalF += transform.right * m_latF * m_load;
+		// 総力の計算
+		m_totalF += transform.forward * m_longF * (m_load + CalcAcceleAndDeceleLoad(IsFrontSide));
+		m_totalF += transform.right * m_latF * (m_load + CalcAcceleAndDeceleLoad(IsFrontSide));
 
 		// RigidbodyにAddForceする
 		if (!float.IsNaN(m_totalF.magnitude))
-            m_parentRigid.AddForceAtPosition(m_totalF, m_raycastHit.point, ForceMode.Force);
+			m_vehicleRigidbody.AddForceAtPosition(m_totalF, m_raycastHit.point, ForceMode.Force);
 
         //Debug.Log(gameObject.name + "::" + m_longF);
     }
@@ -262,7 +268,7 @@ public class WheelController2024 : MonoBehaviour
         Vector3 down = transform.TransformDirection(Vector3.down);
        
         // 車輪の回転を考慮せずに、車輪が地面に対してどのくらいの速さで動いているかを計算する。
-        Vector3 velocityAtTouch = m_parentRigid.GetPointVelocity(m_raycastHit.point);
+        Vector3 velocityAtTouch = m_vehicleRigidbody.GetPointVelocity(m_raycastHit.point);
 
         // スプリングの圧縮を計算する
         // 位置の差をサスペンションの全範囲で割る
@@ -288,8 +294,8 @@ public class WheelController2024 : MonoBehaviour
         // この力はサスペンションの摩擦による力をシミュレートしています。
         Vector3 shockDrag = transform.TransformDirection(t) * -m_suspensionSpring.Damper;
 
-        // 
-        m_parentRigid.AddForceAtPosition(force + shockDrag, transform.position);
+		// 
+		m_vehicleRigidbody.AddForceAtPosition(force + shockDrag, transform.position);
         m_suspensionLoad = (force + shockDrag).magnitude;
 
         m_visual.position = transform.position + (down * (m_raycastHit.distance - m_radius));
@@ -318,7 +324,7 @@ public class WheelController2024 : MonoBehaviour
     void UpdateVelocity()
     {
         // レイが当たった場所の速度を取得
-        m_wheelVelocity = m_parentRigid.GetPointVelocity(m_raycastHit.point);
+        m_wheelVelocity = m_vehicleRigidbody.GetPointVelocity(m_raycastHit.point);
 
         m_longSpeed = Vector3.Dot(m_wheelVelocity, transform.forward);
         m_latSpeed   = Vector3.Dot(m_wheelVelocity, transform.right);
@@ -620,5 +626,74 @@ public class WheelController2024 : MonoBehaviour
 
         Gizmos.DrawSphere(transform.position + transform.up * m_suspensionDistance, 0.1f);
     }
-    #endregion
+	#endregion
+
+	/// <summary>
+	/// 加減速時の前後荷重配分の計算
+	/// </summary>
+	private Vector3 prevForwardVelocity;
+	[Header("LoadBalance front:0 ~ rear:1.0")]
+	[SerializeField, Range(0.0f, 1.0f)]
+    private float weightBalance;
+
+	float CalcAcceleAndDeceleLoad(bool _isFront)
+	{
+		Vector3 m_velocity = m_vehicleRigidbody.linearVelocity;
+		Vector3 forward = gameObject.transform.forward;
+		Vector3 forwardVelocity = Vector3.Dot(m_velocity, forward) * forward;
+
+		float w = 1190.0f;
+		float l = 2.51f;
+        float lf = l + (1.0f - weightBalance);
+        float lr = l * weightBalance;
+		//float lf = 1.255f;
+		//float lr = 1.255f;
+		//float lf = 1.004f;
+		//float lr = 1.506f;
+		float h = 0.3343f;
+		float a = forwardVelocity.magnitude - prevForwardVelocity.magnitude;
+		float g = 9.80665f;
+
+		//bool IsAcceleration()
+		//{
+		//    Vector3 m_velocity = m_vehicleRigidbody.linearVelocity;
+		//    Vector3 forward = gameObject.transform.forward;
+		//    Vector3 forwardVelocity = Vector3.Dot(m_velocity, forward) * forward;
+		//    float a = forwardVelocity.magnitude - prevForwardVelocity.magnitude;
+		//    return a > 0.0f ? true : false;
+		//}
+		//IsAcceleration() ? Debug.Log("加速") : Debug.Log("減速");
+
+		//if (forwardVelocity.magnitude < prevForwardVelocity.magnitude && a > 0.0f)
+		//{
+		//    a = -a;
+		//}
+		//else
+		//{
+		//    a = Mathf.Abs(a);
+		//}
+
+		prevForwardVelocity = forwardVelocity;
+
+		float wf = (w * (lr / l)) - (h / l) * (w / g) * a * 100.0f;
+		float wr = (w * (lf / l)) + (h / l) * (w / g) * a * 100.0f;
+
+		//float halfW = w * 0.5f;
+		//float wf = (w * (lr / l)) - (h / l) * (w / g) * a * 100.0f - halfW;
+		//float wr = (w * (lf / l)) + (h / l) * (w / g) * a * 100.0f - halfW;
+
+		//Debug.Log("Front : " + wf + "   Rear : " + wr);
+
+		//if (_isFront)
+		//{
+		//    return wf;
+		//}
+		//else
+		//{
+		//    return wr;
+		//}
+
+		return _isFront ? wf : wr;
+	}
+
 }

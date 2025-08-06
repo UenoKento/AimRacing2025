@@ -14,7 +14,7 @@ public class UI_StarCountDown : MonoBehaviour
     private TextMeshProUGUI _tmp = null;
 
     [SerializeField]
-    private int _count = 0;
+    public int _count = 3;  // 0‚É‚È‚Á‚½‚ç“®‚©‚¹‚é‚æ‚¤‚É‚·‚é
     [SerializeField]
     private float _interval = 0f;
     private float _deltaTimer = 0f;
@@ -23,7 +23,7 @@ public class UI_StarCountDown : MonoBehaviour
     private bool _isChecked = false;
 
     [SerializeField]
-    private VehicleController2024 _vehicleController = null;
+    private VehicleController _vehicleController = null;
 
     [SerializeField]
     private int _state = 0;
@@ -35,7 +35,7 @@ public class UI_StarCountDown : MonoBehaviour
 
     void Start()
     {
-        _vehicleController = _vehicleController.GetComponent<VehicleController2024>();
+        _vehicleController = _vehicleController.GetComponent<VehicleController>();
         _state = 0;
 
 		SetActives(false);
