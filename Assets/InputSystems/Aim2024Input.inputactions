@@ -623,6 +623,17 @@
                     "action": "CellMotor",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6fa615e9-49fb-40bb-b290-678e4f3545ce",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CellMotor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
