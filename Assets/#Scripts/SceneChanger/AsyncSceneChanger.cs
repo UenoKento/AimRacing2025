@@ -77,7 +77,7 @@ public class AsyncSceneChanger : MonoBehaviour
 			// 進行状況
 			m_progress = asyncOperation.progress;
 
-			// allowSceneActivationがtrueの場合0.9でロードが止まる
+			// allowSceneActivationがtrueの場合0.9でロードが止まる←0.9 is 何？
 			if (asyncOperation.progress >= 0.9f )
 			{
 				// シーン遷移
