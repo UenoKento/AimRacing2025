@@ -16,7 +16,10 @@
     "com.unity.visualscripting": "1.9.4",
     "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.ai": "1.0.0",
+<<<<<<< HEAD
     "com.unity.modules.amd": "1.0.0",
+=======
+>>>>>>> origin/Ueno
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.assetbundle": "1.0.0",

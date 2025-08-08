@@ -348,12 +348,15 @@
       "source": "builtin",
       "dependencies": {}
     },
+<<<<<<< HEAD
     "com.unity.modules.amd": {
       "version": "1.0.0",
       "depth": 0,
       "source": "builtin",
       "dependencies": {}
     },
+=======
+>>>>>>> origin/Ueno
     "com.unity.modules.androidjni": {
       "version": "1.0.0",
       "depth": 0,
