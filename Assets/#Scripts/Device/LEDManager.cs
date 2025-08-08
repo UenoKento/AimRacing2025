@@ -5,7 +5,7 @@ using VehiclePhysics;
 public class LEDManager : MonoBehaviour
 {
     [SerializeField]
-    VehicleController2024 m_vehicle;
+    VehicleController m_vehicle;
 
     [Header("LED")]
     [SerializeField]

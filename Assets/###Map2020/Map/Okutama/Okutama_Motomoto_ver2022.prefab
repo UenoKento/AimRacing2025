@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1239764970964060032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1909340427525905722}
+  - component: {fileID: 3301293102600704671}
+  - component: {fileID: 735348824492910165}
+  m_Layer: 6
+  m_Name: Okutama_Motomoto_ver2022
+  m_TagString: Road
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1909340427525905722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239764970964060032}
+  m_LocalRotation: {x: -0.00000016858736, y: 0.7071068, z: 0.7071067, w: 0.00000027535756}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &3301293102600704671
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239764970964060032}
+  m_Mesh: {fileID: -4249169842354647496, guid: f148891772adad0408e6e2211fc87a6e, type: 3}
+--- !u!23 &735348824492910165
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239764970964060032}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 4d7b17c8742604e4aa26f6e96de50a09, type: 2}
+  - {fileID: 2100000, guid: f99ed13784dbfb943b1b61c2c6e37a5d, type: 2}
+  - {fileID: 2100000, guid: 665e6af87b6c2494f881ee3a56e6a3e5, type: 2}
+  - {fileID: 2100000, guid: 50084c461807b1047bb5abf9ae8b6246, type: 2}
+  - {fileID: 2100000, guid: 8debe6c9256410e4fa4ef35011dd5ca5, type: 2}
+  - {fileID: 2100000, guid: fd2e875fe310e034096a87bcb8c01e74, type: 2}
+  - {fileID: 2100000, guid: b946a8c97e0dfdf4a8535f198b46cd99, type: 2}
+  - {fileID: 2100000, guid: 7fec368142a4d5240960d2a9053426ce, type: 2}
+  - {fileID: 2100000, guid: 27aca2c72ed4deb45961477d65ea68cc, type: 2}
+  - {fileID: 2100000, guid: fefce6a13ec9e1d41ae00c4410865cdd, type: 2}
+  - {fileID: 2100000, guid: bba585a983748f74597c1aabb70c59de, type: 2}
+  - {fileID: 2100000, guid: a666a63b80b0ce844b024b9d8178e284, type: 2}
+  - {fileID: 2100000, guid: 48e4092d5e597e14195e13388f6f51a8, type: 2}
+  - {fileID: 2100000, guid: 37e79cc548feee94495b0d7e39e01a4d, type: 2}
+  - {fileID: 2100000, guid: 2453f0d907aea2f4fac9a104065ed5f9, type: 2}
+  - {fileID: 2100000, guid: 5db49e5f4df9ebf43b6d099447870876, type: 2}
+  - {fileID: 2100000, guid: f367aeb9f8318574aa4d9c1fb53aed49, type: 2}
+  - {fileID: 2100000, guid: 6f4992de0a09dc040ad3dd161375a268, type: 2}
+  - {fileID: 2100000, guid: f54a24eca60e01b40894fcc825883361, type: 2}
+  - {fileID: 2100000, guid: 4dc3e69dcf3b7144284a2138a43899e7, type: 2}
+  - {fileID: 2100000, guid: 50697b13fa328114f90d45a941005dfb, type: 2}
+  - {fileID: 2100000, guid: 4d31e88b1bb792a47903a1f4952101d8, type: 2}
+  - {fileID: 2100000, guid: addafeb8bf6a3bc41859a9e6d5cd8d6e, type: 2}
+  - {fileID: 2100000, guid: fa98ae7692e87494badec4df1f36078d, type: 2}
+  - {fileID: 2100000, guid: 82ccf662b16c32c478290db679896b02, type: 2}
+  - {fileID: 2100000, guid: 46d887304744510438779ed4aabe94a7, type: 2}
+  - {fileID: 2100000, guid: ba2a53986b6d58b4ba51bcadd225d6cf, type: 2}
+  - {fileID: 2100000, guid: 99ab63f265229be43bee0550853c6ba9, type: 2}
+  - {fileID: 2100000, guid: 78b60cc1d9023c9489c87d2dcb93b191, type: 2}
+  - {fileID: 2100000, guid: d129b991f6b32c943b3408243c40c3df, type: 2}
+  - {fileID: 2100000, guid: c0c68e12c15f6454ba24d4b72e65270b, type: 2}
+  - {fileID: 2100000, guid: 6b872be4ca60fb24d90b251456f8ab5e, type: 2}
+  - {fileID: 2100000, guid: 563d02201767ff24f9c7e58f31379d98, type: 2}
+  - {fileID: 2100000, guid: 13a10254a685d1c44a3a58caf4bf716e, type: 2}
+  - {fileID: 2100000, guid: bb8f7693a304fc9488b6f41c44802b6f, type: 2}
+  - {fileID: 2100000, guid: 0531fec7daecbbe4cb346d749b105833, type: 2}
+  - {fileID: 2100000, guid: b182f0bcd876ea548a98c40e4530603d, type: 2}
+  - {fileID: 2100000, guid: 3abc016b225ff674bbfd04ad53a120b4, type: 2}
+  - {fileID: 2100000, guid: 3ef04979ba799f44b85b010cac8b8e38, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}

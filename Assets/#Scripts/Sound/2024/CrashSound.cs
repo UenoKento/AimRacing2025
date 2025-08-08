@@ -8,7 +8,7 @@ public class CrashSound : MonoBehaviour
 	Rigidbody m_rigidbody;
 
 	[SerializeField]
-	VehicleController2024 m_vehicle;
+	VehicleController m_vehicle;
 	Vector3 m_crashedPosition;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created

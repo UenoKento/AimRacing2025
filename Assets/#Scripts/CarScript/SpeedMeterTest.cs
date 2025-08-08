@@ -6,7 +6,7 @@ using TMPro;
 public class SpeedMeterTest : MonoBehaviour
 {
     [SerializeField]
-    VehicleController2024 vehicleController;
+    VehicleController vehicleController;
     TextMeshProUGUI tmpro;
 
     // Start is called before the first frame update

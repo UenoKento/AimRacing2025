@@ -25,7 +25,7 @@ public class StartAction : MonoBehaviour
     private bool _isChecked = false;
 
     [SerializeField]
-    private VehicleController2024 _vehicleController = null;
+    private VehicleController _vehicleController = null;
 
     [SerializeField]
     private int _state = 0;
@@ -41,7 +41,7 @@ public class StartAction : MonoBehaviour
         _image = _image.GetComponent<Image>();
         _tmPro = _tmPro.GetComponent<TextMeshProUGUI>();
 
-        _vehicleController = _vehicleController.GetComponent<VehicleController2024>();
+        _vehicleController = _vehicleController.GetComponent<VehicleController>();
         _state = 0;
 
 		SetActives(false);

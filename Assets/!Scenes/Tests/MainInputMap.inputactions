@@ -1,0 +1,176 @@
+{
+    "name": "MainInputMap",
+    "maps": [
+        {
+            "name": "Car",
+            "id": "6bd41ad7-c57d-400b-811a-1539bc578972",
+            "actions": [
+                {
+                    "name": "Handle",
+                    "type": "Value",
+                    "id": "943bcd90-b502-433a-95a3-0b8e5377005f",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "GearUp",
+                    "type": "Button",
+                    "id": "4dec1408-8c31-43a6-a158-75b776d82d13",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GearDown",
+                    "type": "Button",
+                    "id": "889750f4-eef4-446a-95e7-ba0d7a45b0fe",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Accel",
+                    "type": "Value",
+                    "id": "58c515a2-bee5-4f81-998b-f38e2639a4a9",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Brake",
+                    "type": "Value",
+                    "id": "f0feba1f-6e08-4458-aa79-f5dacc907a28",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "ClutchPush",
+                    "type": "Button",
+                    "id": "c38c8dec-53eb-4830-926d-e43255759eae",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ClutchRelease",
+                    "type": "Button",
+                    "id": "05b22e29-9a39-421f-b38e-b8741ddc1e25",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "49a80253-eea8-4fe7-a06f-c12991c232fe",
+                    "path": "<HID::Logitech G923 Racing Wheel for PlayStation and PC>/stick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ClutchPush",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0e4bd473-fdc8-4116-bb6c-5f4987d587b5",
+                    "path": "<HID::Logitech G923 Racing Wheel for PlayStation and PC>/stick/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Handle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5cf62f4c-cacd-4590-9d22-b9438e0eb931",
+                    "path": "<HID::Logitech G923 Racing Wheel for PlayStation and PC>/button6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GearDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f9bbdff-1df9-40bd-8e26-b4acb3a45bc1",
+                    "path": "<HID::LTB-SMG>/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GearDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "592d6640-ca04-4a58-9148-a065542d68b3",
+                    "path": "<HID::Logitech G923 Racing Wheel for PlayStation and PC>/button5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GearUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "19b6483b-7da5-4597-a377-79445b333dcf",
+                    "path": "<HID::LTB-SMG>/button2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GearUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f6d566a-ca19-4dbf-beee-6dd73c53b1b2",
+                    "path": "<HID::Logitech G923 Racing Wheel for PlayStation and PC>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Accel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f2672205-dc74-40b4-8718-5f422bf7133c",
+                    "path": "<HID::Logitech G923 Racing Wheel for PlayStation and PC>/rz",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Brake",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91bd4449-86ae-4e02-b1ba-0fa26311975a",
+                    "path": "<HID::Logitech G923 Racing Wheel for PlayStation and PC>/stick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ClutchRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

@@ -12,7 +12,7 @@ using UnityEngine.InputSystem;
 public class DebugUnityEvents : MonoBehaviour
 {
     [SerializeField]
-    private VehicleController2024 m_vehicleController;
+    private VehicleController m_vehicleController;
 
     [SerializeField]
     private ChairController2024 m_chairController;

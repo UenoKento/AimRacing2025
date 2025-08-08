@@ -4,7 +4,7 @@ public class BaseSetting : MonoBehaviour
 {
 	private void Awake()
 	{
-		Application.targetFrameRate = 60;   
+		Application.targetFrameRate = 120;   
 	}
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created

@@ -7,7 +7,7 @@ using VehiclePhysics;
 public class UI_Meter : MonoBehaviour
 {
     [SerializeField]
-    private VehicleController2024 _vehicleController = null;
+    private VehicleController _vehicleController = null;
     [SerializeField]
     private TimeKeeper _timeKeeper = null;
 

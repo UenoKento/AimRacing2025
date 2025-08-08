@@ -3,7 +3,7 @@ using UnityEngine;
 public class StabilityControl : MonoBehaviour
 {
     [SerializeField]
-    VehicleController2024 m_vehicle;
+    VehicleController m_vehicle;
     [SerializeField]
     WheelController2024 m_fl;
     [SerializeField]

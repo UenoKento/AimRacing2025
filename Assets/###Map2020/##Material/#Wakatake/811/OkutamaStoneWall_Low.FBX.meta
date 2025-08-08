@@ -1,0 +1,155 @@
+fileFormatVersion: 2
+guid: b4e203b2a39908047974ba99591ab948
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Wall01-05_Low
+    100004: Wall06-09_Low
+    100006: Wall10-13_Low
+    100008: Wall14,15_Low
+    100010: Wall16_Low
+    100012: Wall17_Low
+    100014: Wall18_Low
+    100016: Wall19,22_Low
+    100018: Wall20,21_Low
+    100020: Wall23-27_Low
+    400000: //RootNode
+    400002: Wall01-05_Low
+    400004: Wall06-09_Low
+    400006: Wall10-13_Low
+    400008: Wall14,15_Low
+    400010: Wall16_Low
+    400012: Wall17_Low
+    400014: Wall18_Low
+    400016: Wall19,22_Low
+    400018: Wall20,21_Low
+    400020: Wall23-27_Low
+    2100000: 'Material #2477'
+    2100002: 'Material #2478'
+    2100004: 'Material #2479'
+    2100006: 'Material #2480'
+    2100008: 'Material #2486'
+    2100010: 'Material #2485'
+    2100012: 'Material #2484'
+    2100014: 'Material #2481'
+    2100016: 'Material #2482'
+    2100018: 'Material #2483'
+    2300000: Wall01-05_Low
+    2300002: Wall06-09_Low
+    2300004: Wall10-13_Low
+    2300006: Wall14,15_Low
+    2300008: Wall16_Low
+    2300010: Wall17_Low
+    2300012: Wall18_Low
+    2300014: Wall19,22_Low
+    2300016: Wall20,21_Low
+    2300018: Wall23-27_Low
+    3300000: Wall01-05_Low
+    3300002: Wall06-09_Low
+    3300004: Wall10-13_Low
+    3300006: Wall14,15_Low
+    3300008: Wall16_Low
+    3300010: Wall17_Low
+    3300012: Wall18_Low
+    3300014: Wall19,22_Low
+    3300016: Wall20,21_Low
+    3300018: Wall23-27_Low
+    4300000: Wall01-05_Low
+    4300002: Wall06-09_Low
+    4300004: Wall10-13_Low
+    4300006: Wall14,15_Low
+    4300008: Wall23-27_Low
+    4300010: Wall20,21_Low
+    4300012: Wall19,22_Low
+    4300014: Wall16_Low
+    4300016: Wall17_Low
+    4300018: Wall18_Low
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

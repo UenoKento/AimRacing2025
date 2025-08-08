@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class SteerSlider : MonoBehaviour
 {
     [SerializeField]
-    VehicleController2024 vehicleController;
+    VehicleController vehicleController;
 
     [SerializeField]
     Slider m_slider;

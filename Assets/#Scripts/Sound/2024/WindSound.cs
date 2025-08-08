@@ -4,7 +4,7 @@ using FMODUnity;
 public class WindSound : MonoBehaviour
 {
     [SerializeField]
-    VehicleController2024 m_vehicle;
+    VehicleController m_vehicle;
 
     [SerializeField]
     EventReference m_eventRef_Wind;

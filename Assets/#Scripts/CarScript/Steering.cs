@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UIElements;
+using VehiclePhysics;
 
 [System.Serializable]
 public class Steering
@@ -18,10 +20,10 @@ public class Steering
     float m_treadWidth;
     [SerializeField]
     float m_steeringGearRatio;
-    [SerializeField,Range(0f,90f)]
+    [SerializeField,Range(0f,900f)]
     float m_maxSteerAngle;
-    [SerializeField, Range(180f, 450f)]
-    float m_steeringRange = 450f;
+    [SerializeField, Range(180f, 900f)]
+    float m_steeringRange = 900f;
 
     /// <summary>
     /// ホイールのステア角を計算する
@@ -49,40 +51,57 @@ public class Steering
 		}
     }
 
-    float CalcAckermanAngle(float _steerAngle,bool _isRight)
-    {
-        _steerAngle *= Mathf.Deg2Rad;
-		float angleR = Mathf.Atan(m_wheelBase * Mathf.Tan(_steerAngle) / (m_wheelBase + 0.5f * m_treadWidth * Mathf.Tan(_steerAngle))) * Mathf.Rad2Deg;
-		float angleL = Mathf.Atan(m_wheelBase * Mathf.Tan(_steerAngle) / (m_wheelBase - 0.5f * m_treadWidth * Mathf.Tan(_steerAngle))) * Mathf.Rad2Deg;
+	float CalcAckermanAngle(float _steerAngle, bool _isRight)
+	{
+		_steerAngle *= Mathf.Deg2Rad;
+        float Steer_Tan = Mathf.Tan(_steerAngle);
+		float angleR = Mathf.Atan(m_wheelBase * Steer_Tan / (m_wheelBase + 0.5f * m_treadWidth * Steer_Tan)) * Mathf.Rad2Deg;
+		float angleL = Mathf.Atan(m_wheelBase * Steer_Tan / (m_wheelBase - 0.5f * m_treadWidth * Steer_Tan)) * Mathf.Rad2Deg;
 
-        if(_steerAngle > 0f)
-        {
+		// 05/18 追加:土田
+		// 速度が遅いほどsteerFactorが大きくなるように補正
+		//float maxSpeed = 250f; // 最大速度
+		//float steerFactor = 1f;
+		//steerFactor = Mathf.Clamp01(1f - (m_vehicleController.m_KPH * m_vehicleController.m_KPH) / (maxSpeed * maxSpeed));
+
+		if (_steerAngle > 0f)
+		{
             angleL = CalcAckermanOutsideAngle(angleR, _steerAngle);
-        }
-        else
-        {
-			angleR = CalcAckermanOutsideAngle(angleL, _steerAngle);
+		}
+		else
+		{
+            angleR = CalcAckermanOutsideAngle(angleL, _steerAngle);
 		}
 
-
-
-        if (_isRight)
-        {
-            return angleR;
-        }
-        else
-        {
-            return angleL;
-        }
+		return _isRight ? angleR : angleL;
 	}
 
-    /// <summary>
-    /// 内側の切れ角から外側の切れ角を計算する
-    /// </summary>
-    float CalcAckermanOutsideAngle(float _insideAngle,float _steerAngle)
+
+	/// <summary>
+	/// 内側の切れ角から外側の切れ角を計算する
+    /// 2025/06/18 小見川 処理の変更を行いました。
+ 	/// </summary>
+	float CalcAckermanOutsideAngle(float _insideAngle,float _steerAngle)
     {
-        float ackermanPer = m_treadWidth / m_wheelBase;
-        return _insideAngle - ackermanPer * (_insideAngle - _steerAngle);
+        //修正前の式
+        //float ackermanPer = m_treadWidth / m_wheelBase;
+        //return _insideAngle - ackermanPer * (_insideAngle - _steerAngle);
+
+        bool IsRight = true;
+
+        if (_insideAngle < 0)
+        {
+            _insideAngle *= -1;
+            IsRight = false;
+        }
+
+        float tanA = Mathf.Tan(_insideAngle * Mathf.Deg2Rad);
+
+        float angle = Mathf.Atan(m_wheelBase * tanA / ((m_treadWidth * tanA) + m_wheelBase)) * Mathf.Rad2Deg;
+
+        if (!IsRight) { angle *= -1; }
+
+        return angle;
     }
 
 }

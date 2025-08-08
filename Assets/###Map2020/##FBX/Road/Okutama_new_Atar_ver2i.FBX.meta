@@ -1,0 +1,171 @@
+fileFormatVersion: 2
+guid: 85ab117602c68934b95acae135bf67bf
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: '#kakutyouRoad_atari_Line'
+    100002: '#kakutyouRoad_atari_Line001'
+    100004: '#kakutyouRoad_atari_Line002'
+    100006: '#kakutyouRoad_atari_Line003'
+    100008: Left_Wall01_ver3
+    100010: Left_Wall02_ver3
+    100012: //RootNode
+    100014: Right_Wall01_ver3
+    100016: Right_Wall02_ver3
+    400000: '#kakutyouRoad_atari_Line'
+    400002: '#kakutyouRoad_atari_Line001'
+    400004: '#kakutyouRoad_atari_Line002'
+    400006: '#kakutyouRoad_atari_Line003'
+    400008: Left_Wall01_ver3
+    400010: Left_Wall02_ver3
+    400012: //RootNode
+    400014: Right_Wall01_ver3
+    400016: Right_Wall02_ver3
+    2100000: road10
+    2100002: 'Material #2100'
+    2100004: 'Material #2099'
+    2100006: road4
+    2100008: road8
+    2100010: road3
+    2100012: 05 - Default
+    2100014: 'Material #2108'
+    2100016: 'Material #2110'
+    2100018: 'Material #2111'
+    2100020: 'Material #2109'
+    2100022: 'Material #355'
+    2100024: road9
+    2100026: road6
+    2100028: road7
+    2100030: 'Material #183'
+    2100032: road2
+    2100034: road1
+    2100036: 'Material #2107'
+    2100038: 'Material #2106'
+    2100040: 'Material #2105'
+    2100042: 'Material #2101'
+    2100044: 'Material #2104'
+    2100046: 'Material #2102'
+    2100048: 'Material #2097'
+    2100050: 'Material #2098'
+    2100052: 'Material #2095'
+    2100054: 'Material #2094'
+    2100056: 'Material #2096'
+    2100058: 'Material #354'
+    2100060: 'Material #353'
+    2100062: Road4
+    2100064: 'Material #358'
+    2100066: 'Material #356'
+    2100068: Road3
+    2100070: Road2
+    2100072: Road1
+    2100074: 'Material #348'
+    2300000: '#kakutyouRoad_atari_Line'
+    2300002: '#kakutyouRoad_atari_Line001'
+    2300004: '#kakutyouRoad_atari_Line002'
+    2300006: '#kakutyouRoad_atari_Line003'
+    2300008: Left_Wall01_ver3
+    2300010: Left_Wall02_ver3
+    2300012: Right_Wall01_ver3
+    2300014: Right_Wall02_ver3
+    3300000: '#kakutyouRoad_atari_Line'
+    3300002: '#kakutyouRoad_atari_Line001'
+    3300004: '#kakutyouRoad_atari_Line002'
+    3300006: '#kakutyouRoad_atari_Line003'
+    3300008: Left_Wall01_ver3
+    3300010: Left_Wall02_ver3
+    3300012: Right_Wall01_ver3
+    3300014: Right_Wall02_ver3
+    4300000: Left_Wall01_ver3
+    4300002: Left_Wall02_ver3
+    4300004: Right_Wall01_ver3
+    4300006: Right_Wall02_ver3
+    4300008: '#kakutyouRoad_atari_Line'
+    4300010: '#kakutyouRoad_atari_Line001'
+    4300012: '#kakutyouRoad_atari_Line002'
+    4300014: '#kakutyouRoad_atari_Line003'
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

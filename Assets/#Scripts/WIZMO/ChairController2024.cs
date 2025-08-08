@@ -40,7 +40,7 @@ public class ChairController2024 : MonoBehaviour
     // Vehicle
     private GameObject m_vehicleObject;
     // VehicleController
-    private VehicleController2024 m_vehiclecontroller;
+    private VehicleController m_vehiclecontroller;
     // Load
     private LoadTransfer m_load = new LoadTransfer();
 	#endregion
@@ -216,7 +216,7 @@ public class ChairController2024 : MonoBehaviour
     void Initialize()
     {
         m_vehicleObject = transform.root.gameObject;
-        m_vehiclecontroller = m_vehicleObject.GetComponent<VehicleController2024>();
+        m_vehiclecontroller = m_vehicleObject.GetComponent<VehicleController>();
         if (m_controller == null)
         {
 			m_controller = GameManager.Instance.WIZMO;
